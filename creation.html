@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Creations | Sambradhan Bartaula</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="Voidi.png" />
+    <style>
+        /* ===== BASE STYLES & RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Mode (Default) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --accent-glow: rgba(59, 130, 246, 0.1);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --gradient-start: #3b82f6;
+            --gradient-end: #8b5cf6;
+        }
+
+        body.dark {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --accent: #60a5fa;
+            --accent-dark: #3b82f6;
+            --accent-glow: rgba(96, 165, 250, 0.15);
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-container .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .nav-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: var(--accent-glow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+        }
+
+        /* Hero Section */
+        .creation-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 100%);
+            text-align: center;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .creation-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        /* Creations Grid */
+        .creations-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .creations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Flip Card */
+        .flip-card {
+            background-color: transparent;
+            height: 450px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 1rem;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flip-card-front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .flip-card-front img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 1rem;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .project-link {
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+
+        .demo-link {
+            background: var(--accent);
+            color: white;
+        }
+
+        .code-link {
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Skills Cloud */
+        .skills-showcase {
+            padding: 4rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .skills-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .skill-cloud-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            padding: 1rem 1.5rem;
+            position: relative;
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .skill-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                flex-direction: column;
+                padding: 1rem;
+                backdrop-filter: blur(12px);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-stats {
+                gap: 1.5rem;
+            }
+            .creation-hero-content h1 {
+                font-size: 2rem;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        .block {
+            display: block;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation with Sliding Active Indicator -->
+    <nav id="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <img src="voidi.png" alt="logo" class="logo-img" onerror="this.src='https://placehold.co/40x40'">
+                <span class="logo-text">GR_tempest</span>
+            </a>
+        </div>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="index.html#home" class="nav-item" data-section="home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
+                    <path d="M3 10L12 3L21 10V20H3V10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M9 20V14H15V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>Home</span>
+            </a>
+            <a href="index.html#about" class="nav-item" data-section="about">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M5.5 20v-2a6 6 0 0 1 12 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>About</span>
+            </a>
+            <a href="index.html#projects" class="nav-item" data-section="projects">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
+                    <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 3L18 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 3L6 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="13" r="2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Projects</span>
+            </a>
+            <a href="index.html#youtube" class="nav-item" data-section="youtube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
+                    <rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="2"/>
+                    <path d="M10 8l6 4-6 4V8z" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+                </svg>
+                <span>YouTube</span>
+            </a>
+            <a href="index.html#contact" class="nav-item" data-section="contact">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
+                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="m22 7-10 7L2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>Contact</span>
+            </a>
+            <a href="creation.html" class="nav-item active" data-section="creations">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
+                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 3v18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 3v18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M3 8h18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M3 16h18" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Creations</span>
+                <span class="nav-badge">Portfolio</span>
+            </a>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="sun-icon" id="sunIcon">
+                    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4.93 4.93l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M17.66 17.66l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M2 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M20 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="moon-icon" id="moonIcon" style="display: none;">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="creation-hero">
+        <div class="creation-hero-content">
+            <div class="hero-badge">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="badge-icon">
+                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 3v18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 3v18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M3 8h18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M3 16h18" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>My Portfolio</span>
+            </div>
+            <h1>
+                <span class="gradient-text">Web Development</span>
+                <span class="block">Projects</span>
+            </h1>
+            <p>Explore my collection of web projects, each crafted with attention to detail and modern web standards.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="stat-icon">
+                        <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M16 3L18 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M8 3L6 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span class="stat-number">4+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="stat-icon">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Live Sites</span>
+                </div>
+                <div class="stat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="stat-icon">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Hours</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Creations Section -->
+    <section class="creations-section">
+        <div class="section-title">
+            <h2>
+                <span class="title-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M3 9h18" stroke="currentColor" stroke-width="2"/>
+                        <path d="M9 21V9" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </span>
+                Featured Works
+            </h2>
+        </div>
+        
+        <div class="creations-grid">
+            <!-- Project 1 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-badge">Latest</div>
+                        <img src="sadhana.png" alt="Sadhana Auto Parts" onerror="this.src='https://placehold.co/80x80'">
+                        <h3>Sadhana Auto Parts</h3>
+                        <p>E-commerce platform for auto parts with responsive design</p>
+                        <div class="tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="back-content">
+                            <h3>Sadhana Auto Parts</h3>
+                            <p>Developed as co-founder, this e-commerce solution features product listings, category navigation, and responsive design for all devices.</p>
+                            <div class="project-links">
+                                <a href="https://sambradhan12.github.io/sadhana-app/index.html" class="project-link demo-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                                <a href="https://github.com/sambradhan12/sadhana-app" class="project-link code-link" target="_blank">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-badge premium">LEARN</div>
+                        <img src="codex.png" alt="CODE-X" onerror="this.src='https://placehold.co/80x80'">
+                        <h3>CODE-X</h3>
+                        <p>Learn coding from scratch with interactive lessons</p>
+                        <div class="tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="back-content">
+                            <h3>CODE-X Learning Platform</h3>
+                            <p>An interactive learning platform designed for beginners to master coding fundamentals through hands-on exercises, quizzes, and real-time code execution.</p>
+                            <div class="project-links">
+                                <a href="https://gr-tempest.github.io/Code-X/index.html" class="project-link demo-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                                <a href="https://github.com/Gr-tempest/Code-X" class="project-link code-link" target="_blank">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="Voidi.png" alt="Portfolio Template" onerror="this.src='https://placehold.co/80x80'">
+                        <h3>Portfolio Template</h3>
+                        <p>Modern responsive portfolio design</p>
+                        <div class="tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="back-content">
+                            <h3>Portfolio Template</h3>
+                            <p>A sleek, responsive portfolio template with smooth animations and clean design that showcases creative work effectively.</p>
+                            <div class="project-links">
+                                <a href="#" class="project-link demo-link">
+                                    <i class="fas fa-external-link-alt"></i> You are on it
+                                </a>
+                                <a href="#" class="project-link code-link">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Showcase -->
+    <section class="skills-showcase">
+        <div class="section-title">
+            <h2>Technologies I Use</h2>
+        </div>
+        <div class="skills-cloud">
+            <div class="skill-cloud-item"><div class="skill-content"><span>HTML5</span></div></div>
+            <div class="skill-cloud-item"><div class="skill-content"><span>CSS3</span></div></div>
+            <div class="skill-cloud-item"><div class="skill-content"><span>JavaScript</span></div></div>
+            <div class="skill-cloud-item"><div class="skill-content"><span>Responsive Design</span></div></div>
+            <div class="skill-cloud-item"><div class="skill-content"><span>Git & GitHub</span></div></div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="Voidi.png" alt="logo" class="footer-img" style="width:40px" onerror="this.src='https://placehold.co/40x40'">
+                <span>Sambradhan Bartaula</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="creation.html">Creations</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://youtube.com/@grrimuru" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/gr_tempest" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/sambradhan12" target="_blank" class="social-icon github"><i class="fab fa-github"></i></a>
+                <a href="mailto:sambradhanbartau@gmail.com" class="social-icon email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <p class="copyright">© <span id="currentYear"></span> Sambradhan Bartaula. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        // Update copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // ===== CORRECTED THEME TOGGLE FEATURE =====
+        // This fixes the theme toggle functionality to properly switch between light/dark mode
+        (function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            
+            // Function to set theme
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    if (sunIcon && moonIcon) {
+                        sunIcon.style.display = 'none';
+                        moonIcon.style.display = 'block';
+                    }
+                } else {
+                    document.body.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    if (sunIcon && moonIcon) {
+                        sunIcon.style.display = 'block';
+                        moonIcon.style.display = 'none';
+                    }
+                }
+            }
+            
+            // Get saved theme or system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                // Check system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
+            }
+            
+            // Toggle theme on button click
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isDark = document.body.classList.contains('dark');
+                    setTheme(isDark ? 'light' : 'dark');
+                });
+            }
+        })();
+        
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
